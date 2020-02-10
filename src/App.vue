@@ -1,17 +1,91 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <InputPanel :letters="letters" @selectLetter="selectLetter($event)"/>
+    <OutputPanel :currentLetter="currentLetter" :currentQuestion="currentQuestion" :currentAnswerStr="currentAnswerStr"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import InputPanel from './components/InputPanel.vue'
+import OutputPanel from './components/OutputPanel.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    InputPanel,
+    OutputPanel
+  },
+  data(){
+    return{
+      letters:[
+        {letter: "A", active: true},
+        {letter: "B", active: true},
+        {letter: "C", active: true},
+        {letter: "D", active: true},
+        {letter: "E", active: true},
+        {letter: "F", active: true},
+        {letter: "G", active: true},
+        {letter: "H", active: true},
+        {letter: "I", active: true},
+        {letter: "J", active: true},
+        {letter: "K", active: true},
+        {letter: "L", active: true},
+        {letter: "M", active: true},
+        {letter: "N", active: true},
+        {letter: "O", active: true},
+        {letter: "P", active: true},
+        {letter: "Q", active: true},
+        {letter: "R", active: true},
+        {letter: "S", active: true},
+        {letter: "T", active: true},
+        {letter: "U", active: true},
+        {letter: "V", active: true},
+        {letter: "W", active: true},
+        {letter: "X", active: true},
+        {letter: "Y", active: true},
+        {letter: "Z", active: true}
+      ],
+      questions: [
+        {question: "Sports Team - Cricket", answer: "Kings Eleven Punjab"},
+        {question: "Name of an Organization", answer: "World Health Organization"}
+      ],
+      currentQuestion: "",
+      currentAnswer: [],
+      currentLetter: "",
+      currentIndex: -1,
+      currentAnswerStr: ""
+    }
+  },
+  methods:{
+    selectLetter(index){
+      this.currentLetter = this.letters[index].letter;
+      this.letters[index].active = false;
+
+//console.log(">>> a: " + this.questions[this.currentIndex].answer);
+
+        for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
+        if(this.currentLetter){
+//console.log(">>> b: " + this.questions[this.currentIndex].answer[i]);                
+          if(this.questions[this.currentIndex].answer[i].toLowerCase() === this.currentLetter.toLowerCase()){
+            this.currentAnswer[i] = this.questions[this.currentIndex].answer[i];
+//console.log(">>> a: " + this.currentAnswer);                            
+          }
+          else
+            this.currentAnswer[i] = (this.currentAnswer[i] === "#") ? "#" : this.currentAnswer[i];
+        }
+        this.currentAnswerStr = this.currentAnswer.join('')
+      }
+
+    }
+  },
+  created(){
+    this.currentIndex = Math.random(this.questions.length).toFixed();
+    this.currentQuestion = this.questions[this.currentIndex].question;
+    for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
+      this.currentAnswer[i] = "#";      
+    }
+    this.currentAnswerStr = this.currentAnswer.join('')
+//console.log(">>> this.currentAnswer: " + this.currentAnswer);    
   }
 }
 </script>
