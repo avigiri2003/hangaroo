@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <InputPanel :letters="letters" @selectLetter="selectLetter($event)"/>
-    <OutputPanel :currentLetter="currentLetter" :currentQuestion="currentQuestion" :currentAnswerStr="currentAnswerStr"/>
+    <OutputPanel :currentQuestion="currentQuestion" :currentAnswer="currentAnswer" :currentAnswerStr="currentAnswerStr" :selectedLetters="selectedLetters"/>
   </div>
 </template>
 
@@ -53,27 +53,35 @@ export default {
       currentAnswer: [],
       currentLetter: "",
       currentIndex: -1,
-      currentAnswerStr: ""
+      currentAnswerStr: [],
+      selectedLetters: []
     }
   },
   methods:{
     selectLetter(index){
       this.currentLetter = this.letters[index].letter;
       this.letters[index].active = false;
+      this.selectedLetters.push(this.currentLetter);
 
-//console.log(">>> a: " + this.questions[this.currentIndex].answer);
+      this.currentAnswer = this.questions[this.currentIndex].answer;
 
-        for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
+        /*for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
         if(this.currentLetter){
-//console.log(">>> b: " + this.questions[this.currentIndex].answer[i]);                
           if(this.questions[this.currentIndex].answer[i].toLowerCase() === this.currentLetter.toLowerCase()){
             this.currentAnswer[i] = this.questions[this.currentIndex].answer[i];
-//console.log(">>> a: " + this.currentAnswer);                            
           }
           else
             this.currentAnswer[i] = (this.currentAnswer[i] === "#") ? "#" : this.currentAnswer[i];
         }
-        this.currentAnswerStr = this.currentAnswer.join('')
+        //this.currentAnswerStr = this.currentAnswer.join('')
+      }*/
+    
+      for(var i=0; i<this.currentAnswer.length; i++){
+        if(this.currentAnswer[i].toLowerCase() === this.currentLetter.toLowerCase()){
+          this.currentAnswerStr[i] = this.currentAnswer[i];
+        }
+        else
+          this.currentAnswerStr[i] = (this.currentAnswerStr[i] === "#") ? "#" : this.currentAnswer[i];
       }
 
     }
@@ -81,11 +89,14 @@ export default {
   created(){
     this.currentIndex = Math.random(this.questions.length).toFixed();
     this.currentQuestion = this.questions[this.currentIndex].question;
-    for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
+    /*for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
       this.currentAnswer[i] = "#";      
+    }*/
+    this.currentAnswer = this.questions[this.currentIndex].answer;
+    for(var i=0; i<this.currentAnswer.length; i++){
+      this.currentAnswerStr[i] = "#";      
     }
-    this.currentAnswerStr = this.currentAnswer.join('')
-//console.log(">>> this.currentAnswer: " + this.currentAnswer);    
+    //console.log(">>>>>> currentAnswerStr: " + this.currentAnswerStr);    
   }
 }
 </script>
