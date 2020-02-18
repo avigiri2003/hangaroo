@@ -81,7 +81,7 @@ export default {
   height: 10px;
   width: 50px;
   background-color: #fff0a0;
-  opacity: 70% !important;
+  opacity: 70%;
 }
 nav a{
     display:inline-block;
