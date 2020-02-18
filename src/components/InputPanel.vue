@@ -69,9 +69,7 @@ export default {
   width: 50px;
   background-color: rgb(97, 225, 97);
 }
-.inputpanel_nav:hover{
-  /* box-shadow: 0 2px 70px rgb(52, 170, 48) inset; */
-}
+
 
 .inputpanel_nav_selected{
   display:inline-block;
