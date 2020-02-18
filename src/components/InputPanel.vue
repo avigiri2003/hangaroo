@@ -54,15 +54,15 @@ export default {
   /* color: lightgreen; */
   color: white;
   font-size: 50px;line-height: 10px;letter-spacing: 0px;font-weight: 700;
-  margin: 60px auto 45px;
+  margin: 10px auto 15px;
   border: 5px solid lightblue;
-  border-radius: 5%;
+  border-radius: 25px;
 }
 .inputpanel_nav{
   display:inline-block;
   text-align: center;
   padding: 20px 0;
-  font-size: 30px;
+  font-size: 40px;
   border-radius: 30%;
   box-shadow: 0 2px 8px rgb(52, 170, 48) inset;
   height: 10px;
@@ -77,8 +77,8 @@ export default {
   display:inline-block;
   text-align: center;
   padding: 20px 0;
-  font-size: 30px;
-  border-radius: 30%;
+  font-size: 40px;
+  border-radius: 15px;
   box-shadow: 0 2px 8px rgb(52, 170, 48) inset;
   height: 10px;
   width: 50px;
@@ -107,7 +107,7 @@ nav a:last-child{
     border-radius:0 2px 2px 0;
 }
 .selected{
-  /* color:grey; */
+  pointer-events: none;
   cursor: default;
 }
 </style>
