@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div id= "volume-control" class="volume-on"></div>
+    <!-- <img src="https://img.icons8.com/officel/80/000000/no-audio.png">
+    <img src="https://img.icons8.com/officel/80/000000/speaker.png"> -->
     <div class="wrongAns" :class="{blink: wrongAnswerCount === 4}">
       <span :class="{wrongAnsOne: wrongAnswerCount >= 1}">X</span>
       <span :class="{wrongAnsTwo: wrongAnswerCount >= 2}">X</span>
@@ -16,8 +19,7 @@
       :currentAnswer="currentAnswer" 
       :currentAnswerStr="currentAnswerStr" 
       :selectedLetters="selectedLetters"
-      :answerMatch="answerMatch"/>
-    
+      :answerMatch="answerMatch"/>    
     <Footer/>
   </div>
 </template>
@@ -142,13 +144,7 @@ export default {
 
       this.currentLetter = this.letters[index].letter;
       this.letters[index].active = false;
-      // setTimeout(function(){
-      //   document.querySelector(".inputpanel_nav_selected").setAttribute("style", "opacity: 0.7 !important");
-      // }, 100);
       this.selectedLetters.push(this.currentLetter);
-
-      //Commented below line on 15.02
-      //this.currentAnswer = this.questions[this.currentIndex].answer;
     
       var letterMatch = false;
       for(var i=0; i<this.currentAnswer.length; i++){
@@ -203,8 +199,6 @@ export default {
 
       var lines = [""];
       var lineNum = 0;
-      // var newString = "This is a difficult problem";
-      // var newArr = newString.split(" "); 
       var newArr = this.currentAnswer.split(" ");
 
       //------------- STEP 1 -------------
@@ -225,14 +219,14 @@ export default {
       var len = lines.length;
       for(var b=0; b < len; b++){
         var ci = this.getCenterIndex(lines[b]);
-        console.log(">>> lines[b]=" + lines[b] + ", ci: " + ci);
+        //console.log(">>> lines[b]=" + lines[b] + ", ci: " + ci);
         for(var c=0; c < ci; c++){
           lines[b] = " " + lines[b];
           lines[b] = lines[b] + " ";
         }
         if(lines[b].length < 17)
           lines[b] = lines[b] + " ";
-      console.log(">>> lines[b]=" + lines[b] + ", length: " + lines[b].length);
+      //console.log(">>> lines[b]=" + lines[b] + ", length: " + lines[b].length);
       }
 
       //------------- STEP 3 -------------
@@ -282,14 +276,14 @@ export default {
           //nothing to do
           break;
       }
-      console.log(">>> lines=" + lines);
+      //console.log(">>> lines=" + lines);
 
       //------------- STEP 4 -------------
       var finalStr = "";
       for(var e=0; e < lines.length; e++){
         finalStr = finalStr + lines[e];
       }
-      console.log(">>> finalStr: " + finalStr);
+      //console.log(">>> finalStr: " + finalStr);
 
       this.currentAnswer = [];
       for(var j=0; j<finalStr.length; j++){
@@ -302,12 +296,12 @@ export default {
           this.currentAnswer[j] = finalStr[j];
         }
       }
-      console.log(">>> this.currentAnswerStr: " + this.currentAnswerStr);
-      console.log(">>> this.currentAnswer: " + this.currentAnswer);
+      //console.log(">>> this.currentAnswerStr: " + this.currentAnswerStr);
+      //console.log(">>> this.currentAnswer: " + this.currentAnswer);
     },
 
     playSound(sound) {
-      if(sound) {
+      if(document.volume) {
         if(sound === "wrong"){
           var audio = new Audio("http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3");
           //  var audio = new Audio("./assets/sample_wav.wav");
@@ -320,150 +314,22 @@ export default {
         
     }
 
-
   },
   created(){
     this.nextQ();
   }
-
-  // ,created_old_2(){
-  //    //let newString = "This is a difficult problem";
-  //   var newString = "World Health Organization";
-  //   var newArr = newString.split(" "); 
-  //   var yourVar = 0;
-  //   var resultStr = [];
-  //   console.log("newArr: " + newArr);
-  //   for(var s=0; s < newArr.length; s++){
-  //     var vbc = "";
-  //     for(var oops=0; oops<resultStr.length; oops++)
-  //       vbc = vbc + resultStr[oops];
-  //     console.log("vbc: " + vbc);
-  //     //if(s===0)
-  //       //resultStr[s] = newArr[s];
-  //     //else
-  //       //resultStr = resultStr.concat(newArr[s]);
-  //     if(s !== 0)
-  //       resultStr.push(" ");
-  //     for(var o=0; o<newArr[s].length; o++)
-  //       resultStr.push(newArr[s][o]);
-  //     console.log("resultStr: " + resultStr + ", resultStr length: " + resultStr.length);
-
-  //     if(resultStr.length <=16){
-  //     console.log(">> IF");
-  //       yourVar = this.getCenterIndex(resultStr);
-  //       for(var t=0; t<yourVar; t++){
-  //         resultStr.unshift(" ");
-  //         //resultStr.pop();
-  //       }
-  //     }
-  //     else{
-  //       yourVar = this.getCenterIndex(newArr[s]);
-  //       console.log(">> ELSE" + ", newArr[s]: " + newArr[s] + ", yourVar: " + yourVar + ", vbc.length: " + vbc.length);
-  //       for(var d=0; d<yourVar + (17-(vbc.length + newArr[s].length)); d++)
-  //         resultStr.splice(vbc.length, 0, " ");
-  //     }
-  //   console.log(">> s= " + s + ", resultStr: " + resultStr);
-  //   }
-  //   console.log(">> Final resultStr: " + resultStr + ", length: " +  resultStr.length);
-
-  //   for(var h=0; h<resultStr.length; h++){
-  //     if(resultStr[h] === " ")
-  //       this.currentAnswerStr[h] = " ";      
-  //     else
-  //       this.currentAnswerStr[h] = "#";      
-  //   }
-  // }
-
-  // ,created_old(){
-  //   this.currentIndex = Math.random(this.questions.length).toFixed();
-  //   this.currentQuestion = this.questions[this.currentIndex].question;
-  //   /*for(var i=0; i<this.questions[this.currentIndex].answer.length; i++){
-  //     this.currentAnswer[i] = "#";      
-  //   }*/
-  //   this.currentAnswer = this.questions[this.currentIndex].answer;
-  //   // for(var i=0; i<this.currentAnswer.length; i++){
-  //   //   this.currentAnswerStr[i] = "#";      
-  //   // }
-
-  //   for(var i=0; i<68; i++){
-  //      this.currentAnswerStr[i] = " ";      
-  //   }
-
-  //   // for(var j=20; j<20+this.currentAnswer.length; j++){
-  //   //   if(this.currentAnswer[j-20] === " ")
-  //   //     this.currentAnswerStr[j] = " ";      
-  //   //   else
-  //   //     this.currentAnswerStr[j] = "#";      
-  //   // }
-
-  //   for(var j=0; j<this.currentAnswer.length; j++){
-  //     if(this.currentAnswer[j] === " ")
-  //       this.currentAnswerStr[j] = " ";      
-  //     else
-  //       this.currentAnswerStr[j] = "#";      
-  //   }
-
-    
-  //   let something = this.currentAnswer.split(" ");
-  //   let counter = 0;
-  //   let start = 20;
-
-  //   console.log(">>> " + something, counter, start);
-
-  //   let myVar = 0;
-  //   let tempStr = "";
-  //   for(var k=0; k<something.length; k++){
-  //     tempStr = tempStr + " " + something[k];
-  //     myVar = Math.round((17 - myVar - tempStr.length) / 2);
-  //     console.log(">>> myVar: " + myVar + " tempStr: " + tempStr);
-      
-  //     for(var m=0; m<myVar; m++){
-  //       this.currentAnswerStr.unshift(" ");
-  //       this.currentAnswerStr.pop();
-  //     }
-  //   }
-
-  //   /*
-  //   // for(var k=0; k<start; k++){
-  //   //   this.currentAnswerStr.unshift(" ");
-  //   //   if(this.currentAnswerStr.length > 68)
-  //   //     this.currentAnswerStr.pop();
-  //   // }
-
-  //   let myVar = Math.floor((68 - this.currentAnswer.length) / 2);
-  //   console.log(">>> myVar: " + myVar);
-  //   for(var k=0; k<myVar; k++){
-  //     this.currentAnswerStr.unshift(" ");
-  //     this.currentAnswerStr.pop();
-  //   }
-
-  //   var ix = this.currentAnswerStr.indexOf("#");
-  //   for(var z=0; z<myVar; z++){
-
-  //   }
-
-  //   // while(counter < something.length){
-  //   //   if(counter > 0 && something[counter].length >=16){
-  //   //     start = something[counter].length + 1;
-  //   //     counter++;
-  //   //     continue;
-  //   //   }
-  //   //   else{
-  //   //     for(var k=0; k<start; k++){
-  //   //     this.currentAnswerStr.unshift(" ");
-  //   //     if(this.currentAnswerStr.length > 68)
-  //   //       this.currentAnswerStr.pop();
-  //   //     }
-  //   //   }
-  //   //   counter++;
-  //   // }
-
-  //    //console.log(">>> " + something);
-
-  //   //console.log(">>>>>> currentAnswerStr: " + this.currentAnswerStr);    
-  //   */
-  // }
 }
+
+function switchVolume(){
+    this.classList.toggle('volume-on');
+    this.classList.toggle('volume-mute');
+    document.volume = !document.volume;
+}
+setTimeout(function(){
+  document.volume = true;
+  document.querySelector("#volume-control").addEventListener("click", switchVolume);
+}, 50);
+
 </script>
 
 <style>
@@ -477,8 +343,14 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
-  /* background: linen; */
+}
+.volume-on{
+  content: url("https://img.icons8.com/officel/80/000000/speaker.png");
+  margin: 0px auto 5px;
+}
+.volume-mute{
+  content: url("https://img.icons8.com/officel/80/000000/no-audio.png");
+  margin: 0px auto 5px;
 }
 .wrongAns{
   background-color:#ffcb0059;
