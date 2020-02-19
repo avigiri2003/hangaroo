@@ -142,9 +142,9 @@ export default {
 
       this.currentLetter = this.letters[index].letter;
       this.letters[index].active = false;
-      setTimeout(function(){
-        document.querySelector(".inputpanel_nav_selected").setAttribute("style", "opacity: 70% !important");
-      }, 100);
+      // setTimeout(function(){
+      //   document.querySelector(".inputpanel_nav_selected").setAttribute("style", "opacity: 0.7 !important");
+      // }, 100);
       this.selectedLetters.push(this.currentLetter);
 
       //Commented below line on 15.02
